@@ -393,6 +393,13 @@
       width: 178px;
       transform: translateX(-50%);
       text-decoration: none;
+      z-index: 2;
+    }
+
+    .point:hover,
+    .point:focus,
+    .point:focus-within {
+      z-index: 12;
     }
 
     .dot {
@@ -533,7 +540,7 @@
     }
 
     .detail-card.selected p,
-    .detail-card.selected .placeholder {
+    .detail-card.selected .detail-extra {
       color: #f2f4f7;
     }
 
@@ -546,7 +553,7 @@
       margin-top: 8px;
     }
 
-    .placeholder {
+    .detail-extra {
       margin-top: 14px;
       border-top: 1px dashed var(--line);
       padding-top: 12px;
@@ -676,14 +683,6 @@
       margin-top: 8px;
       font-weight: 800;
       color: #175cd3;
-    }
-
-    .video-embed {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      border: 0;
-      border-radius: 8px;
-      background: #000;
     }
 
     .video-open {
@@ -892,6 +891,11 @@
               <div class="point-card"><strong>What's Going On</strong><span>A performed social text that sounds like a community.</span></div>
             </a>
 
+            <a class="point artist marvin timeline-item below" data-kind="artist" href="#abraham-martin-and-john" style="left: 65%;">
+              <div class="dot"></div>
+              <div class="point-card"><strong>Abraham, Martin and John</strong><span>A quiet reflection on American political loss.</span></div>
+            </a>
+
             <a class="point society bad-bunny timeline-item above" data-kind="society" href="#hurricane-maria" style="left: 78%;">
               <div class="dot"></div>
               <div class="point-card"><strong>Hurricane Maria</strong><span>A 2017 hurricane that devastated Puerto Rico.</span></div>
@@ -902,9 +906,9 @@
               <div class="point-card"><strong>Puerto Rico protests</strong><span>Mass protests in 2019 demanded political accountability.</span></div>
             </a>
 
-            <a class="point artist bad-bunny timeline-item above" data-kind="artist" href="#bad-bunny-politics" style="left: 90%;">
+            <a class="point artist bad-bunny timeline-item above" data-kind="artist" href="#el-apagon" style="left: 90%;">
               <div class="dot"></div>
-              <div class="point-card"><strong>Bad Bunny performances</strong><span>Performance makes local political issues visible to wider audiences.</span></div>
+              <div class="point-card"><strong>El Apagón</strong><span>Music as entertainment and activism for Puerto Rico.</span></div>
             </a>
 
             <a class="point society bad-bunny timeline-item above" data-kind="society" href="#election-2024" style="left: 94%;">
@@ -935,56 +939,56 @@
             <h3>Great Depression</h3>
             <p>A worldwide economic crisis that began in 1929 and caused unemployment, poverty, and insecurity.</p>
             <a class="wiki-link" href="https://en.wikipedia.org/wiki/Great_Depression" target="_blank" rel="noopener">Wikipedia</a>
-            <div class="placeholder">The Great Depression deepened Woody Guthrie’s early hardship. It worsened his family’s financial crisis and exposed him to poverty, unemployment, and instability.</div>
+            <div class="detail-extra">The Great Depression deepened Woody Guthrie’s early hardship. It worsened his family’s financial crisis and exposed him to poverty, unemployment, and instability.</div>
           </article>
 
           <article class="detail-card woody-source" id="dust-bowl">
             <h3>Dust Bowl Migration</h3>
             <p>Severe drought and dust storms forced many families to leave the Great Plains during the 1930s.</p>
             <a class="wiki-link" href="https://en.wikipedia.org/wiki/Dust_Bowl" target="_blank" rel="noopener">Wikipedia</a>
-            <div class="placeholder">The Dust Bowl migration allowed Guthrie to live among the people he later advocated for. By traveling with migrants and seeing camps, hunger, and displacement, he experienced the harshness of their lives directly.</div>
+            <div class="detail-extra">The Dust Bowl migration allowed Guthrie to live among the people he later advocated for. By traveling with migrants and seeing camps, hunger, and displacement, he experienced the harshness of their lives directly.</div>
           </article>
 
           <article class="detail-card woody-source" id="world-war-two">
             <h3>World War II</h3>
             <p>A global war from 1939 to 1945 that changed ideas about patriotism, labor, and public responsibility.</p>
             <a class="wiki-link" href="https://en.wikipedia.org/wiki/World_War_II" target="_blank" rel="noopener">Wikipedia</a>
-            <div class="placeholder">During World War II, Guthrie served on merchant marine ships as a cook and dishwasher. This gave him firsthand exposure to wartime conditions and strengthened his later anti-fascist and working-class political views.</div>
+            <div class="detail-extra">During World War II, Guthrie served on merchant marine ships as a cook and dishwasher. This gave him firsthand exposure to wartime conditions and strengthened his later anti-fascist and working-class political views.</div>
           </article>
 
           <article class="detail-card marvin-source" id="civil-rights">
             <h3>Civil Rights Era</h3>
             <p>A broad movement for racial equality, voting rights, and legal protections in the United States.</p>
             <a class="wiki-link" href="https://en.wikipedia.org/wiki/Civil_rights_movement" target="_blank" rel="noopener">Wikipedia</a>
-            <div class="placeholder">As a black man in America, the Civil Rights Movement shaped his awareness of racial injustice and inequality in America.</div>
+            <div class="detail-extra">As a black man in America, the Civil Rights Movement shaped his awareness of racial injustice and inequality in America.</div>
           </article>
 
           <article class="detail-card marvin-source" id="vietnam-war">
             <h3>Vietnam War</h3>
             <p>A long Cold War conflict that created intense debate, protest, and grief in American society.</p>
             <a class="wiki-link" href="https://en.wikipedia.org/wiki/Vietnam_War" target="_blank" rel="noopener">Wikipedia</a>
-            <div class="placeholder">The Vietnam War deeply impacted Marvin Gaye, especially after hearing stories from his brother who served in combat.</div>
+            <div class="detail-extra">The Vietnam War deeply impacted Marvin Gaye, especially after hearing stories from his brother who served in combat.</div>
           </article>
 
           <article class="detail-card bunny-source" id="hurricane-maria">
             <h3>Hurricane Maria</h3>
             <p>A 2017 hurricane that caused major destruction and a humanitarian crisis in Puerto Rico.</p>
             <a class="wiki-link" href="https://en.wikipedia.org/wiki/Hurricane_Maria" target="_blank" rel="noopener">Wikipedia</a>
-            <div class="placeholder">Hurricane Maria exposed Bad Bunny to the long-term suffering of Puerto Rican people after disaster. The slow recovery, power failures, and government neglect pushed him to speak more openly about inequality, corruption, and Puerto Rico’s political condition.</div>
+            <div class="detail-extra">Hurricane Maria exposed Bad Bunny to the long-term suffering of Puerto Rican people after disaster. The slow recovery, power failures, and government neglect pushed him to speak more openly about inequality, corruption, and Puerto Rico’s political condition.</div>
           </article>
 
           <article class="detail-card bunny-source" id="puerto-rico-protests">
             <h3>Puerto Rico Protests</h3>
             <p>Mass protests in 2019 demanded accountability from Puerto Rican leadership.</p>
             <a class="wiki-link" href="https://en.wikipedia.org/wiki/Telegramgate" target="_blank" rel="noopener">Wikipedia</a>
-            <div class="placeholder">The 2019 Puerto Rico protests gave Bad Bunny a direct role in public resistance. By joining the protests against Governor Ricardo Rosselló and releasing political music, he strengthened his image as a performer who stands with Puerto Rican people and demands accountability.</div>
+            <div class="detail-extra">The 2019 Puerto Rico protests gave Bad Bunny a direct role in public resistance. By joining the protests against Governor Ricardo Rosselló and releasing political music, he strengthened his image as a performer who stands with Puerto Rican people and demands accountability.</div>
           </article>
 
           <article class="detail-card bunny-source" id="election-2024">
             <h3>2024 Presidential Election</h3>
             <p>The U.S. presidential election between Kamala Harris and Donald Trump.</p>
             <a class="wiki-link" href="https://en.wikipedia.org/wiki/2024_United_States_presidential_election" target="_blank" rel="noopener">Wikipedia</a>
-            <div class="placeholder">Bad Bunny participated in the 2024 presidential election by sharing Kamala Harris's post about Puerto Rico with his Instagram audience.</div>
+            <div class="detail-extra">Bad Bunny participated in the 2024 presidential election by sharing Kamala Harris's post about Puerto Rico with his Instagram audience.</div>
           </article>
         </div>
       </div>
@@ -1007,7 +1011,7 @@
           <article class="detail-card woody-source" id="this-land-is-your-land">
             <h3>This Land Is Your Land</h3>
             <p>"This Land Is Your Land" is one of the best-known American folk songs. It fights for equality by demonstrating that America should belong to all people. The simple melody and repetitive structure make it easy for people of all ages and class to sing together, remember, and spread across generations.</p>
-            <div class="placeholder">
+            <div class="detail-extra">
               <button class="video-open" type="button" data-video="https://www.youtube.com/embed/wxiMrvDbq3s?autoplay=1&rel=0" data-title="This Land Is Your Land video">
                 <img src="https://img.youtube.com/vi/wxiMrvDbq3s/hqdefault.jpg" alt="This Land Is Your Land video preview">
                 <span aria-hidden="true">▶</span>
@@ -1018,7 +1022,7 @@
           <article class="detail-card woody-source" id="columbia-river-collection">
             <h3>Columbia River Collection</h3>
             <p>"Columbia River Collection" was a collection of songs Woody Gutherie wrote for the Bonneville Power Administration to promote public hydroelectric projects on the Columbia River. It demonstrates Guthrie's political influence beyond abstract ideas, helping the government to advocate for modernization and shared benefits.</p>
-            <div class="placeholder">
+            <div class="detail-extra">
               <button class="video-open" type="button" data-video="https://www.youtube.com/embed/2sH6CcsTafw?autoplay=1&rel=0" data-title="Columbia River Collection video">
                 <img src="https://img.youtube.com/vi/2sH6CcsTafw/hqdefault.jpg" alt="Columbia River Collection video preview">
                 <span aria-hidden="true">▶</span>
@@ -1034,7 +1038,7 @@
           <article class="detail-card marvin-source" id="whats-going-on">
             <h3>What's Going On</h3>
             <p>Marvin Gaye's song "What's Going On" works as more than a song, it is a kind of performed social text. The layered vocals and background chatter create a sense of collective embodiment, like we're hearing a community rather than a single artist. This effectively blurs the line between performer and audience, and creates a connection between the two.</p>
-            <div class="placeholder">
+            <div class="detail-extra">
               <button class="video-open" type="button" data-video="https://www.youtube.com/embed/o5TmORitlKk?autoplay=1&rel=0" data-title="What's Going On video">
                 <img src="https://img.youtube.com/vi/o5TmORitlKk/hqdefault.jpg" alt="What's Going On video preview">
                 <span aria-hidden="true">▶</span>
@@ -1042,10 +1046,26 @@
             </div>
           </article>
 
-          <article class="detail-card bunny-source" id="bad-bunny-politics">
-            <h3>Bad Bunny Performances</h3>
-            <p>How performance can increase the visibility of Puerto Rican political topics.</p>
-            <div class="placeholder">Add examples from performances, music videos, or interviews.</div>
+          <article class="detail-card marvin-source" id="abraham-martin-and-john">
+            <h3>Abraham, Martin and John</h3>
+            <p>Marvin Gaye's version of Abraham, Martin and John feels less like a typical cover and more like a quiet reflection on American political loss. Through his restrained, almost fragile vocal delivery, he turns the song into a kind of collective mourning for leaders like Abraham Lincoln, Martin Luther King Jr., and John F. Kennedy. What stands out is how the politics aren't stated directly, but his voice carries a sense of grief and exhaustion that mirrors the country's repeated cycles of violence and assassination.</p>
+            <div class="detail-extra">
+              <button class="video-open" type="button" data-video="https://www.youtube.com/embed/F1LWVY0wwG4?autoplay=1&rel=0" data-title="Abraham, Martin and John video">
+                <img src="https://img.youtube.com/vi/F1LWVY0wwG4/hqdefault.jpg" alt="Abraham, Martin and John video preview">
+                <span aria-hidden="true">▶</span>
+              </button>
+            </div>
+          </article>
+
+          <article class="detail-card bunny-source" id="el-apagon">
+            <h3>El Apagón</h3>
+            <p>"El Apagón" addresses Puerto Rico's struggles with gentrification, unreliable electricity, and government neglect after Hurricane Maria. By combining energetic reggaeton with serious spoken testimony, Bad Bunny turns the song into both entertainment and activism, using music to highlight displacement, inequality, and the political issues affecting Puerto Rican communities.</p>
+            <div class="detail-extra">
+              <button class="video-open" type="button" data-video="https://www.youtube.com/embed/QdQEljUMCEM?autoplay=1&rel=0" data-title="El Apagón video">
+                <img src="https://img.youtube.com/vi/QdQEljUMCEM/hqdefault.jpg" alt="El Apagón video preview">
+                <span aria-hidden="true">▶</span>
+              </button>
+            </div>
           </article>
         </div>
       </div>
