@@ -465,35 +465,6 @@
       top: 404px;
     }
 
-    .legend {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-top: 18px;
-      color: #475467;
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .legend span::before {
-      content: "";
-      display: inline-block;
-      width: 11px;
-      height: 11px;
-      border-radius: 50%;
-      margin-right: 6px;
-      vertical-align: -1px;
-      background: var(--event);
-    }
-
-    .legend .soc::before {
-      background: var(--society);
-    }
-
-    .legend .art::before {
-      background: var(--artist);
-    }
-
     .details-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -583,11 +554,177 @@
       font-size: 14px;
     }
 
+    .artist-story {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .story-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-top: 8px solid var(--woody);
+      border-radius: 8px;
+      padding: 22px;
+      box-shadow: 0 8px 22px rgba(16, 24, 40, 0.08);
+    }
+
+    .marvin-page .story-card {
+      border-top-color: var(--marvin);
+    }
+
+    .bunny-page .story-card {
+      border-top-color: var(--bunny);
+    }
+
+    .story-card p + p {
+      margin-top: 14px;
+    }
+
+    .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+    }
+
+    .image-gallery figure {
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 8px 22px rgba(16, 24, 40, 0.08);
+    }
+
+    .zoom-image {
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: zoom-in;
+    }
+
+    .zoom-image:hover img,
+    .zoom-image:focus img {
+      filter: brightness(0.86);
+    }
+
+    .image-gallery img {
+      display: block;
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .image-gallery figcaption {
+      padding: 10px 12px;
+      color: #475467;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      background: rgba(17, 24, 39, 0.88);
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox img,
+    .lightbox iframe {
+      max-width: min(1100px, 92vw);
+      max-height: 84vh;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+      object-fit: contain;
+    }
+
+    .lightbox iframe {
+      width: min(1100px, 92vw);
+      aspect-ratio: 16 / 9;
+      border: 0;
+      background: #000;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 6px;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.14);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
     .wiki-link {
       display: inline-block;
       margin-top: 8px;
       font-weight: 800;
       color: #175cd3;
+    }
+
+    .video-embed {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border: 0;
+      border-radius: 8px;
+      background: #000;
+    }
+
+    .video-open {
+      position: relative;
+      display: block;
+      width: 100%;
+      padding: 0;
+      overflow: hidden;
+      border: 0;
+      border-radius: 8px;
+      background: #000;
+      cursor: pointer;
+    }
+
+    .video-open img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      opacity: 0.82;
+    }
+
+    .video-open span {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: grid;
+      place-items: center;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      color: #202124;
+      font-size: 28px;
+      font-weight: 900;
+    }
+
+    .video-open:hover img,
+    .video-open:focus img {
+      opacity: 0.62;
     }
 
     .hide {
@@ -656,7 +793,6 @@
             <div class="brand"><img class="gt-mark" src="GT.png" alt="Georgia Tech"> Political Influence of Performers</div>
           </div>
           <nav aria-label="Main navigation">
-            <a href="#model">Model</a>
             <a href="#timeline">Timeline</a>
           </nav>
         </header>
@@ -687,7 +823,7 @@
         <div class="timeline-top">
           <div>
             <h2>Timeline</h2>
-            <p class="lead">Major social events and the active years of Woody Guthrie, Marvin Gaye, and Bad Bunny.</p>
+            <p class="lead">Major social events and the active years of three targetted performers, including: Woody Guthrie, Marvin Gaye, and Bad Bunny.</p>
           </div>
           <div class="filters" aria-label="Timeline filters">
             <button class="active" type="button" data-filter="all">All</button>
@@ -725,6 +861,16 @@
               <div class="point-card"><strong>World War II</strong><span>A global war fought from 1939 to 1945.</span></div>
             </a>
 
+            <a class="point artist woody timeline-item below" data-kind="artist" href="#this-land-is-your-land" style="left: 30%;">
+              <div class="dot"></div>
+              <div class="point-card"><strong>This Land Is Your Land</strong><span>A folk song arguing that America belongs to all people.</span></div>
+            </a>
+
+            <a class="point artist woody timeline-item above" data-kind="artist" href="#columbia-river-collection" style="left: 34%;">
+              <div class="dot"></div>
+              <div class="point-card"><strong>Columbia River Collection</strong><span>Songs promoting public hydroelectric projects.</span></div>
+            </a>
+
             <a class="point society marvin timeline-item below" data-kind="society" href="#civil-rights" style="left: 43%;">
               <div class="dot"></div>
               <div class="point-card"><strong>Civil Rights era</strong><span>A movement for racial equality and legal rights.</span></div>
@@ -735,9 +881,9 @@
               <div class="point-card"><strong>Vietnam War</strong><span>A long Cold War conflict that divided public opinion.</span></div>
             </a>
 
-            <a class="point artist marvin timeline-item below" data-kind="artist" href="#whats-going-on" style="left: 58%;">
+            <a class="point artist marvin timeline-item below" data-kind="artist" href="#major-transition" style="left: 58%;">
               <div class="dot"></div>
-              <div class="point-card"><strong>What's Going On</strong><span>Marvin Gaye turns social conflict into a widely heard public question.</span></div>
+              <div class="point-card"><strong>Major Transition</strong><span>Marvin Gaye shifted toward socially conscious music.</span></div>
             </a>
 
             <a class="point society bad-bunny timeline-item above" data-kind="society" href="#hurricane-maria" style="left: 78%;">
@@ -762,11 +908,6 @@
           </div>
         </div>
 
-        <div class="legend">
-          <span class="soc">Society event</span>
-          <span class="art">Artist moment</span>
-          <span>Topic page link</span>
-        </div>
       </div>
     </section>
 
@@ -788,35 +929,35 @@
             <h3>Great Depression</h3>
             <p>A worldwide economic crisis that began in 1929 and caused unemployment, poverty, and insecurity.</p>
             <a class="wiki-link" href="https://en.wikipedia.org/wiki/Great_Depression" target="_blank" rel="noopener">Wikipedia</a>
-            <div class="placeholder">Woody Guthrie is affected by the Great Depression because economic hardship shaped the subjects and tone of his music.</div>
+            <div class="placeholder">The Great Depression deepened Woody Guthrie’s early hardship. It worsened his family’s financial crisis and exposed him to poverty, unemployment, and instability.</div>
           </article>
 
           <article class="detail-card woody-source" id="dust-bowl">
             <h3>Dust Bowl Migration</h3>
             <p>Severe drought and dust storms forced many families to leave the Great Plains during the 1930s.</p>
             <a class="wiki-link" href="https://en.wikipedia.org/wiki/Dust_Bowl" target="_blank" rel="noopener">Wikipedia</a>
-            <div class="placeholder">Woody Guthrie is affected by the Dust Bowl migration because he saw displaced workers and migrants as part of his audience and subject.</div>
+            <div class="placeholder">The Dust Bowl migration allowed Guthrie to live among the people he later advocated for. By traveling with migrants and seeing camps, hunger, and displacement, he experienced the harshness of their lives directly.</div>
           </article>
 
           <article class="detail-card woody-source" id="world-war-two">
             <h3>World War II</h3>
             <p>A global war from 1939 to 1945 that changed ideas about patriotism, labor, and public responsibility.</p>
             <a class="wiki-link" href="https://en.wikipedia.org/wiki/World_War_II" target="_blank" rel="noopener">Wikipedia</a>
-            <div class="placeholder">Woody Guthrie participated in World War II by connecting his music and public image to anti-fascist politics.</div>
+            <div class="placeholder">During World War II, Guthrie served on merchant marine ships as a cook and dishwasher. This gave him firsthand exposure to wartime conditions and strengthened his later anti-fascist and working-class political views.</div>
           </article>
 
           <article class="detail-card marvin-source" id="civil-rights">
             <h3>Civil Rights Era</h3>
             <p>A broad movement for racial equality, voting rights, and legal protections in the United States.</p>
             <a class="wiki-link" href="https://en.wikipedia.org/wiki/Civil_rights_movement" target="_blank" rel="noopener">Wikipedia</a>
-            <div class="placeholder">Marvin Gaye is affected by the Civil Rights era because racial injustice shaped the political concerns he later expressed in music.</div>
+            <div class="placeholder">The Vietnam War deeply impacted Marvin Gaye, especially after hearing stories from his brother who served in combat. As a black man in America, the Civil Rights Movement shaped his awareness of racial injustice and inequality in America.</div>
           </article>
 
           <article class="detail-card marvin-source" id="vietnam-war">
             <h3>Vietnam War</h3>
             <p>A long Cold War conflict that created intense debate, protest, and grief in American society.</p>
             <a class="wiki-link" href="https://en.wikipedia.org/wiki/Vietnam_War" target="_blank" rel="noopener">Wikipedia</a>
-            <div class="placeholder">Marvin Gaye is affected by the Vietnam War because the war shaped the questions of violence, loss, and responsibility in his political music.</div>
+            <div class="placeholder">The Vietnam War deeply impacted Marvin Gaye, especially after hearing stories from his brother who served in combat.</div>
           </article>
 
           <article class="detail-card bunny-source" id="hurricane-maria">
@@ -857,16 +998,32 @@
         </header>
 
         <div class="details-grid">
-          <article class="detail-card woody-source" id="woody-political-persona">
-            <h3>Woody Guthrie Persona</h3>
-            <p>Guthrie built a public image around ordinary Americans and working-class struggle.</p>
-            <div class="placeholder">Add slides about persona, lyrics, and communication.</div>
+          <article class="detail-card woody-source" id="this-land-is-your-land">
+            <h3>This Land Is Your Land</h3>
+            <p>"This Land Is Your Land" is one of the best-known American folk songs. It fights for equality by demonstrating that America should belong to all people. The simple melody and repetitive structure make it easy for people of all ages and class to sing together, remember, and spread across generations.</p>
+            <div class="placeholder">
+              <button class="video-open" type="button" data-video="https://www.youtube.com/embed/wxiMrvDbq3s?autoplay=1&rel=0" data-title="This Land Is Your Land video">
+                <img src="https://img.youtube.com/vi/wxiMrvDbq3s/hqdefault.jpg" alt="This Land Is Your Land video preview">
+                <span aria-hidden="true">▶</span>
+              </button>
+            </div>
           </article>
 
-          <article class="detail-card marvin-source" id="whats-going-on">
-            <h3>What's Going On</h3>
-            <p>How Marvin Gaye brought social crisis into mainstream listening.</p>
-            <div class="placeholder">Add song analysis and audience reception later.</div>
+          <article class="detail-card woody-source" id="columbia-river-collection">
+            <h3>Columbia River Collection</h3>
+            <p>"Columbia River Collection" was a collection of songs Woody Gutherie wrote for the Bonneville Power Administration to promote public hydroelectric projects on the Columbia River. It demonstrates Guthrie's political influence beyond abstract ideas, helping the government to advocate for modernization and shared benefits.</p>
+            <div class="placeholder">
+              <button class="video-open" type="button" data-video="https://www.youtube.com/embed/2sH6CcsTafw?autoplay=1&rel=0" data-title="Columbia River Collection video">
+                <img src="https://img.youtube.com/vi/2sH6CcsTafw/hqdefault.jpg" alt="Columbia River Collection video preview">
+                <span aria-hidden="true">▶</span>
+              </button>
+            </div>
+          </article>
+
+          <article class="detail-card marvin-source" id="major-transition">
+            <h3>Major Transition</h3>
+            <p>Marvin Gaye shifted from making mostly romantic hits to creating socially conscious music. He took more creative control over his work, using his platform to address real-world issues instead of just entertainment.</p>
+            <div class="placeholder">Add examples from his musical and political shift later.</div>
           </article>
 
           <article class="detail-card bunny-source" id="bad-bunny-politics">
@@ -891,17 +1048,43 @@
           </div>
         </header>
 
-        <div class="details-grid">
-          <article class="detail-card">
-            <h3>Performer page</h3>
-            <p>Use this page for Guthrie's early life, ordinary-American persona, lyrics, and influence.</p>
-            <div class="placeholder">Add your final Woody Guthrie content here.</div>
+        <div class="artist-story">
+          <article class="story-card">
+            <h3>About Woody Guthrie</h3>
+            <p>Woody Guthrie's early hardships helped him build a transparent political persona: he did not appear as a distant celebrity speaking about the people, but as someone speaking from within them. After experiencing poverty, family tragedy, migration, and labor instability, Guthrie could present himself as a performer who knew the suffering of people facing inequality. His persona centered around the idea that he was part of the people, he understood their pain, and he spoke for them. This transparency also shaped his musical style. His lyrics and melodies were straightforward and simple, yet sharp and convincing, making them verbally accessible and easy to repeat. For example, in "This Land Is Your Land," the line "as I went walking that ribbon of highway" is not only straightforward and simple to understand, but also reminds audiences of Guthrie's own migrant past, reinforcing his identity as a performer rooted in ordinary people's lives.</p>
           </article>
-          <article class="detail-card">
-            <h3>Connection to model</h3>
-            <p>Social hardship shaped Guthrie's beliefs; his performances made working-class struggles more visible.</p>
-            <div class="placeholder">Add evidence from slides later.</div>
-          </article>
+
+          <article class="story-card">
+            <h3>Woody Guthrie and the Cycle</h3>
+            <p>Guthrie's career shows the political cycle between society and performers. His early life was marked by financial struggle after his father's business failure; mental and emotional hardship after his sister died in a fire and his mother was institutionalized; and the broader social crisis of the Great Depression and Dust Bowl. During his teenage years of migration to California, within migrant camps and freight trains, he shaped his desire to speak for workers, the unemployed, migrants, and other people facing inequality. As World War II began, his political message expanded from economic justice to antifascism, symbolized by the phrase on his guitar: "This Machine Kills Fascists." His influence remains visible through how widely "This Land Is Your Land" is still sung today, especially in elementary schools. However, the removal of certain verses that critisized private properties (which is associated with communism) also shows how society continues to reshape a performer's work politically even after it becomes public.</p>
+            </article>
+
+          <div class="image-gallery" aria-label="Woody Guthrie images">
+            <figure>
+              <button class="zoom-image" type="button">
+                <img src="Woody%20Gutherie/Woody_Guthrie_2.jpg" alt="Woody Guthrie portrait">
+              </button>
+              <figcaption>Woody Guthrie</figcaption>
+            </figure>
+            <figure>
+              <button class="zoom-image" type="button">
+                <img src="Woody%20Gutherie/This_Land_Is_Your_Land.pdf.jpg" alt="This Land Is Your Land sheet or lyric image">
+              </button>
+              <figcaption>This Land Is Your Land</figcaption>
+            </figure>
+            <figure>
+              <button class="zoom-image" type="button">
+                <img src="Woody%20Gutherie/37b213e5a8e11668f0f876ffd9ae3023.jpg" alt="Woody Guthrie related historical image">
+              </button>
+              <figcaption>Political Persona</figcaption>
+            </figure>
+            <figure>
+              <button class="zoom-image" type="button">
+                <img src="Woody%20Gutherie/ab67616d00001e021cca81c9f27dd386a6a76e83.jpeg" alt="Woody Guthrie music cover image">
+              </button>
+              <figcaption>Music and Memory</figcaption>
+            </figure>
+          </div>
         </div>
       </div>
     </section>
@@ -919,17 +1102,43 @@
           </div>
         </header>
 
-        <div class="details-grid">
-          <article class="detail-card">
-            <h3>Performer page</h3>
-            <p>Use this page for why Marvin Gaye matters, his persona, lyrics, and communication.</p>
-            <div class="placeholder">Add your final Marvin Gaye content here.</div>
+        <div class="artist-story">
+          <article class="story-card">
+            <h3>About Marvin Gaye</h3>
+            <p>Marvin Gaye was an African-American singer, songwriter, and producer who became one of the most influential voices in soul and R&amp;B music. Rising to fame at Motown Records in the late 1950s and 1960s, he was first known for smooth love songs and duets. Over time, he evolved into a more introspective artist, blending personal emotion with social commentary. His music stood out for its rich vocals, layered production, and willingness to tackle serious issues. Gaye helped push popular music beyond entertainment into something more reflective and political. His 1971 album What's Going On is widely considered one of the greatest albums ever, addressing war, poverty, and injustice with a deeply human perspective.</p>
           </article>
-          <article class="detail-card">
-            <h3>Connection to model</h3>
-            <p>War, protest, and racial conflict shaped the questions Gaye brought into performance.</p>
-            <div class="placeholder">Add evidence from slides later.</div>
+
+          <article class="story-card">
+            <h3>Marvin Gaye and the Cycle</h3>
+            <p>Marvin Gaye's career overlaps directly with major mid-20th-century events shown on the timeline, especially the Vietnam War and the Civil Rights Movement. Early in his career, his music fit the polished Motown style of the 1960s. But as the country became more divided, Gaye's work changed. In 1971, right in the middle of social unrest and anti-war protests, he released What's Going On, which directly responded to the tensions of the era. The album reflects the voices of people affected by war, racial inequality, and economic struggles. Instead of staying separate from politics, Gaye became part of the broader cultural conversation, using music as a way to process and express what was happening in society.</p>
           </article>
+
+          <div class="image-gallery" aria-label="Marvin Gaye images">
+            <figure>
+              <button class="zoom-image" type="button">
+                <img src="Marvin%20Gaye/ghows-AR-200719681-949673a6.jpg.webp" alt="Marvin Gaye portrait">
+              </button>
+              <figcaption>Marvin Gaye</figcaption>
+            </figure>
+            <figure>
+              <button class="zoom-image" type="button">
+                <img src="Marvin%20Gaye/MarvinGayeWhat'sGoingOnalbumcover.jpg" alt="What's Going On album cover">
+              </button>
+              <figcaption>What's Going On</figcaption>
+            </figure>
+            <figure>
+              <button class="zoom-image" type="button">
+                <img src="Marvin%20Gaye/MarvinGaye_YoureTheMan.jpg.webp" alt="Marvin Gaye You're The Man cover">
+              </button>
+              <figcaption>You're The Man</figcaption>
+            </figure>
+            <figure>
+              <button class="zoom-image" type="button">
+                <img src="Marvin%20Gaye/marvin-gaye-and-parents.webp" alt="Marvin Gaye with his parents">
+              </button>
+              <figcaption>Personal Background</figcaption>
+            </figure>
+          </div>
         </div>
       </div>
     </section>
@@ -963,6 +1172,12 @@
     </section>
   </main>
 
+  <div class="lightbox" data-lightbox aria-hidden="true">
+    <button class="lightbox-close" type="button" data-lightbox-close>Close</button>
+    <img src="" alt="" data-lightbox-image>
+    <iframe class="hide" src="" title="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen data-lightbox-video></iframe>
+  </div>
+
   <script>
     const filterButtons = document.querySelectorAll("[data-filter]");
     const items = document.querySelectorAll(".timeline-item");
@@ -970,6 +1185,10 @@
     const pages = document.querySelectorAll(".page");
     const backButton = document.querySelector("[data-back]");
     const detailCards = document.querySelectorAll(".detail-card");
+    const lightbox = document.querySelector("[data-lightbox]");
+    const lightboxImage = document.querySelector("[data-lightbox-image]");
+    const lightboxVideo = document.querySelector("[data-lightbox-video]");
+    const lightboxClose = document.querySelector("[data-lightbox-close]");
     let navigationDepth = 0;
 
     window.addEventListener("load", () => {
@@ -1065,6 +1284,58 @@
       button.addEventListener("click", () => {
         window.location.href = window.location.pathname + window.location.search;
       });
+    });
+
+    document.querySelectorAll(".zoom-image").forEach((button) => {
+      button.addEventListener("click", () => {
+        const image = button.querySelector("img");
+        lightboxImage.src = image.src;
+        lightboxImage.alt = image.alt;
+        lightboxImage.classList.remove("hide");
+        lightboxVideo.classList.add("hide");
+        lightboxVideo.src = "";
+        lightboxVideo.title = "";
+        lightbox.classList.add("active");
+        lightbox.setAttribute("aria-hidden", "false");
+      });
+    });
+
+    document.querySelectorAll(".video-open").forEach((button) => {
+      button.addEventListener("click", () => {
+        lightboxImage.classList.add("hide");
+        lightboxImage.src = "";
+        lightboxImage.alt = "";
+        lightboxVideo.src = button.dataset.video;
+        lightboxVideo.title = button.dataset.title;
+        lightboxVideo.classList.remove("hide");
+        lightbox.classList.add("active");
+        lightbox.setAttribute("aria-hidden", "false");
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove("active");
+      lightbox.setAttribute("aria-hidden", "true");
+      lightboxImage.src = "";
+      lightboxImage.alt = "";
+      lightboxVideo.src = "";
+      lightboxVideo.title = "";
+      lightboxVideo.classList.add("hide");
+      lightboxImage.classList.remove("hide");
+    }
+
+    lightboxClose.addEventListener("click", closeLightbox);
+
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && lightbox.classList.contains("active")) {
+        closeLightbox();
+      }
     });
 
     window.addEventListener("popstate", () => {
