@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="An interactive English class website about the political influence cycle between music performers and society.">
+  <title>Political Influence of Performers</title>
+  <style>
+    :root {
+      --ink: #202124;
+      --muted: #667085;
+      --line: #d0d5dd;
+      --paper: #f7f5f0;
+      --panel: #ffffff;
+      --society: #0f766e;
+      --artist: #b42318;
+      --event: #7c3aed;
+      --woody: #b42318;
+      --marvin: #d6a100;
+      --bunny: #175cd3;
+      --shadow: 0 18px 50px rgba(16, 24, 40, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .page {
+      display: none;
+      min-height: 100vh;
+      padding: 36px clamp(18px, 4vw, 56px);
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .wrap {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      font-size: 14px;
+    }
+
+    .gt-mark {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .header-left {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .back-button,
+    .home-button,
+    nav a,
+    .small-link {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.72);
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .back-button,
+    .home-button {
+      cursor: pointer;
+    }
+
+    .back-button {
+      position: fixed;
+      top: 18px;
+      left: 18px;
+      z-index: 20;
+      box-shadow: 0 8px 22px rgba(16, 24, 40, 0.12);
+    }
+
+    .back-button:hover,
+    .back-button:focus,
+    .home-button:hover,
+    .home-button:focus,
+    nav a:hover,
+    nav a:focus,
+    .small-link:hover,
+    .small-link:focus,
+    .filters button:hover,
+    .filters button:focus {
+      background: #e4e7ec;
+      border-color: #98a2b3;
+    }
+
+    .back-button.hidden {
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.05fr);
+      gap: clamp(28px, 5vw, 64px);
+      align-items: center;
+      padding-top: 16px;
+    }
+
+    h1 {
+      margin: 0 0 16px;
+      font-size: clamp(40px, 6vw, 78px);
+      line-height: 0.98;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .lead {
+      max-width: 62ch;
+      color: #475467;
+      font-size: 18px;
+    }
+
+    .model {
+      position: relative;
+      min-height: 500px;
+      background:
+        linear-gradient(135deg, rgba(15, 118, 110, 0.10), transparent 36%),
+        linear-gradient(315deg, rgba(180, 35, 24, 0.10), transparent 42%),
+        var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+      overflow: hidden;
+    }
+
+    .model-title {
+      text-align: center;
+      font-weight: 800;
+      margin-bottom: 24px;
+      color: #344054;
+    }
+
+    .node {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      width: 168px;
+      height: 168px;
+      border-radius: 50%;
+      text-align: center;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 800;
+      box-shadow: 0 16px 38px rgba(16, 24, 40, 0.22);
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    .node:hover,
+    .node:focus {
+      background: #667085;
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 22px 48px rgba(16, 24, 40, 0.28);
+      outline: 3px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .artist-node {
+      left: 42px;
+      top: 168px;
+      background: var(--artist);
+    }
+
+    .society-node {
+      right: 42px;
+      top: 168px;
+      background: var(--society);
+    }
+
+    .cycle-line {
+      position: absolute;
+      inset: 112px 92px 80px;
+      border: 3px solid rgba(32, 33, 36, 0.18);
+      border-radius: 999px;
+      pointer-events: none;
+    }
+
+    .flow-label {
+      position: absolute;
+      max-width: 230px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.88);
+      color: #344054;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .flow-label strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .top-label {
+      top: 86px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+    }
+
+    .bottom-label {
+      bottom: 42px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+    }
+
+    .timeline-card,
+    .detail-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+    }
+
+    .timeline-top {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filters button {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 9px 12px;
+      background: #fff;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .filters button.active {
+      color: #fff;
+      background: #202124;
+      border-color: #202124;
+    }
+
+    .timeline-shell {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 26px;
+      overflow-x: auto;
+    }
+
+    .timeline {
+      position: relative;
+      min-width: 980px;
+      height: 560px;
+      padding: 36px 24px;
+    }
+
+    .axis {
+      position: absolute;
+      left: 38px;
+      right: 38px;
+      top: 280px;
+      height: 4px;
+      background: #98a2b3;
+      border-radius: 999px;
+    }
+
+    .tick {
+      position: absolute;
+      top: 262px;
+      transform: translateX(-50%);
+      color: #475467;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .tick::before {
+      content: "";
+      display: block;
+      width: 2px;
+      height: 32px;
+      margin: 0 auto 8px;
+      background: #98a2b3;
+    }
+
+    .range {
+      position: absolute;
+      height: 38px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 18px;
+      color: #fff;
+      font-weight: 800;
+      font-size: 14px;
+      text-decoration: none;
+      box-shadow: 0 10px 24px rgba(16, 24, 40, 0.14);
+      white-space: nowrap;
+    }
+
+    .range.woody {
+      top: 108px;
+      background: var(--woody);
+    }
+
+    .range.marvin {
+      top: 158px;
+      background: var(--marvin);
+    }
+
+    .range.bad-bunny {
+      top: 208px;
+      background: var(--bunny);
+      font-size: 11px;
+      padding: 0 10px;
+    }
+
+    .range:hover,
+    .range:focus {
+      background: #667085;
+    }
+
+    .point {
+      position: absolute;
+      width: 178px;
+      transform: translateX(-50%);
+      text-decoration: none;
+    }
+
+    .dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      margin: 0 auto 10px;
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 3px var(--event);
+      background: var(--event);
+    }
+
+    .point.society .dot {
+      box-shadow: 0 0 0 3px var(--society);
+      background: var(--society);
+    }
+
+    .point.artist .dot {
+      box-shadow: 0 0 0 3px var(--artist);
+      background: var(--artist);
+    }
+
+    .point.woody .dot {
+      box-shadow: 0 0 0 3px var(--woody);
+      background: var(--woody);
+    }
+
+    .point.marvin .dot {
+      box-shadow: 0 0 0 3px var(--marvin);
+      background: var(--marvin);
+    }
+
+    .point.bad-bunny .dot {
+      box-shadow: 0 0 0 3px var(--bunny);
+      background: var(--bunny);
+    }
+
+    .point-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      min-height: 94px;
+      box-shadow: 0 8px 22px rgba(16, 24, 40, 0.08);
+    }
+
+    .point-card strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .point-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .point:hover .point-card,
+    .point:focus .point-card {
+      background: #e4e7ec;
+      border-color: #98a2b3;
+    }
+
+    .above {
+      top: 338px;
+    }
+
+    .below {
+      top: 404px;
+    }
+
+    .legend {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+      color: #475467;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .legend span::before {
+      content: "";
+      display: inline-block;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      margin-right: 6px;
+      vertical-align: -1px;
+      background: var(--event);
+    }
+
+    .legend .soc::before {
+      background: var(--society);
+    }
+
+    .legend .art::before {
+      background: var(--artist);
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .page-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .detail-card {
+      min-height: 180px;
+    }
+
+    .detail-card.selected {
+      background: #202124;
+      border-color: #202124;
+      color: #fff;
+    }
+
+    .detail-card.woody-source {
+      border-left: 8px solid var(--woody);
+    }
+
+    .detail-card.marvin-source {
+      border-left: 8px solid var(--marvin);
+    }
+
+    .detail-card.bunny-source {
+      border-left: 8px solid var(--bunny);
+    }
+
+    .page.artist-page {
+      background: rgba(23, 92, 211, 0.04);
+    }
+
+    .page.artist-page.woody-page {
+      background: rgba(180, 35, 24, 0.08);
+    }
+
+    .page.artist-page.marvin-page {
+      background: rgba(214, 161, 0, 0.10);
+    }
+
+    .page.artist-page.bunny-page {
+      background: rgba(23, 92, 211, 0.08);
+    }
+
+    .artist-page .detail-card {
+      border-top: 8px solid var(--bunny);
+    }
+
+    .woody-page .detail-card {
+      border-top-color: var(--woody);
+    }
+
+    .marvin-page .detail-card {
+      border-top-color: var(--marvin);
+    }
+
+    .bunny-page .detail-card {
+      border-top-color: var(--bunny);
+    }
+
+    .detail-card.selected p,
+    .detail-card.selected .placeholder {
+      color: #f2f4f7;
+    }
+
+    .detail-card.selected .wiki-link {
+      color: #b2ddff;
+    }
+
+    .detail-card p {
+      color: #475467;
+      margin-top: 8px;
+    }
+
+    .placeholder {
+      margin-top: 14px;
+      border-top: 1px dashed var(--line);
+      padding-top: 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .wiki-link {
+      display: inline-block;
+      margin-top: 8px;
+      font-weight: 800;
+      color: #175cd3;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    @media (max-width: 820px) {
+      header,
+      .timeline-top {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .hero,
+      .model {
+        min-height: 620px;
+      }
+
+      .cycle-line {
+        inset: 126px 44px 90px;
+      }
+
+      .node {
+        width: 148px;
+        height: 148px;
+      }
+
+      .artist-node {
+        left: 50%;
+        top: 142px;
+        transform: translateX(-50%);
+      }
+
+      .society-node {
+        left: 50%;
+        right: auto;
+        top: 380px;
+        transform: translateX(-50%);
+      }
+
+      .artist-node:hover,
+      .artist-node:focus,
+      .society-node:hover,
+      .society-node:focus {
+        transform: translateX(-50%) translateY(-4px) scale(1.02);
+      }
+
+      .top-label {
+        top: 316px;
+      }
+
+      .bottom-label {
+        bottom: 24px;
+      }
+
+    }
+  </style>
+</head>
+<body>
+  <button class="back-button hidden" type="button" data-back>Back</button>
+  <main>
+    <section class="page active" id="model">
+      <div class="wrap">
+        <header>
+          <div class="header-left">
+            <div class="brand"><img class="gt-mark" src="GT.png" alt="Georgia Tech"> Political Influence of Performers</div>
+          </div>
+          <nav aria-label="Main navigation">
+            <a href="#model">Model</a>
+            <a href="#timeline">Timeline</a>
+          </nav>
+        </header>
+
+        <div class="hero">
+          <div>
+            <h1>Political Influence of Performers</h1>
+            <p class="lead">
+              Music performers and society exist in a constant cycle of influence. Major social events often shape the political beliefs that performers develop, giving them the personal and cultural foundation for what they choose to express through music. At the same time, performances can raise the visibility of political issues by turning abstract social problems into emotional and influential debates. Through performences (including lyrics, stage presence, audience interaction, etc.) performers help sharpen the meaning of a political topic and make it easier for the public to recognize, discuss, and remember. Audience feedback also plays an important role in this relationship. The reactions performers receive can influence what they notice, what they believe, and what they decide to say next. In which, the cycle continues.
+            </p>
+
+          </div>
+
+          <div class="model" aria-label="Clickable influence model">
+            <div class="model-title">Proposing model</div>
+            <div class="cycle-line"></div>
+            <a class="node artist-node" href="#timeline" data-filter-link="artist">Music Artist</a>
+            <a class="node society-node" href="#timeline" data-filter-link="society">Society</a>
+            <div class="flow-label top-label"><strong>Society to performer</strong>Social events and audience feedback shape what performers notice, believe, and choose to say.</div>
+            <div class="flow-label bottom-label"><strong>Performer to society</strong>Performances raise visibility and sharpen the public meaning of a political topic.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="timeline">
+      <div class="wrap">
+        <div class="timeline-top">
+          <div>
+            <h2>Timeline</h2>
+            <p class="lead">Major social events and the active years of Woody Guthrie, Marvin Gaye, and Bad Bunny.</p>
+          </div>
+          <div class="filters" aria-label="Timeline filters">
+            <button class="active" type="button" data-filter="all">All</button>
+            <button type="button" data-filter="artist">Artists</button>
+            <button type="button" data-filter="society">Society</button>
+          </div>
+        </div>
+
+        <div class="timeline-shell">
+          <div class="timeline" aria-label="Political influence timeline">
+            <div class="axis"></div>
+            <div class="tick" style="left: 8%;">1929</div>
+            <div class="tick" style="left: 23%;">1940s</div>
+            <div class="tick" style="left: 43%;">1960s</div>
+            <div class="tick" style="left: 58%;">1971</div>
+            <div class="tick" style="left: 78%;">2017</div>
+            <div class="tick" style="left: 96%;">2026</div>
+
+            <a class="range woody timeline-item" data-kind="artist" href="#woody-guthrie" style="left: 10%; width: 24%;">Woody Guthrie active: 1930s-1950s</a>
+            <a class="range marvin timeline-item" data-kind="artist" href="#marvin-gaye" style="left: 36%; width: 25%;">Marvin Gaye active: 1957-1984</a>
+            <a class="range bad-bunny timeline-item" data-kind="artist" href="#bad-bunny" style="left: 76%; width: 22%;">Bad Bunny active: 2016-present</a>
+
+            <a class="point society woody timeline-item above" data-kind="society" href="#great-depression" style="left: 8%;">
+              <div class="dot"></div>
+              <div class="point-card"><strong>Great Depression</strong><span>A worldwide economic crisis that began in 1929.</span></div>
+            </a>
+
+            <a class="point society woody timeline-item below" data-kind="society" href="#dust-bowl" style="left: 16%;">
+              <div class="dot"></div>
+              <div class="point-card"><strong>Dust Bowl migration</strong><span>Severe drought and dust storms displaced many families.</span></div>
+            </a>
+
+            <a class="point society woody timeline-item above" data-kind="society" href="#world-war-two" style="left: 27%;">
+              <div class="dot"></div>
+              <div class="point-card"><strong>World War II</strong><span>A global war fought from 1939 to 1945.</span></div>
+            </a>
+
+            <a class="point society marvin timeline-item below" data-kind="society" href="#civil-rights" style="left: 43%;">
+              <div class="dot"></div>
+              <div class="point-card"><strong>Civil Rights era</strong><span>A movement for racial equality and legal rights.</span></div>
+            </a>
+
+            <a class="point society marvin timeline-item above" data-kind="society" href="#vietnam-war" style="left: 54%;">
+              <div class="dot"></div>
+              <div class="point-card"><strong>Vietnam War</strong><span>A long Cold War conflict that divided public opinion.</span></div>
+            </a>
+
+            <a class="point artist marvin timeline-item below" data-kind="artist" href="#whats-going-on" style="left: 58%;">
+              <div class="dot"></div>
+              <div class="point-card"><strong>What's Going On</strong><span>Marvin Gaye turns social conflict into a widely heard public question.</span></div>
+            </a>
+
+            <a class="point society bad-bunny timeline-item above" data-kind="society" href="#hurricane-maria" style="left: 78%;">
+              <div class="dot"></div>
+              <div class="point-card"><strong>Hurricane Maria</strong><span>A 2017 hurricane that devastated Puerto Rico.</span></div>
+            </a>
+
+            <a class="point society bad-bunny timeline-item below" data-kind="society" href="#puerto-rico-protests" style="left: 82%;">
+              <div class="dot"></div>
+              <div class="point-card"><strong>Puerto Rico protests</strong><span>Mass protests in 2019 demanded political accountability.</span></div>
+            </a>
+
+            <a class="point artist bad-bunny timeline-item above" data-kind="artist" href="#bad-bunny-politics" style="left: 90%;">
+              <div class="dot"></div>
+              <div class="point-card"><strong>Bad Bunny performances</strong><span>Performance makes local political issues visible to wider audiences.</span></div>
+            </a>
+
+            <a class="point society bad-bunny timeline-item above" data-kind="society" href="#election-2024" style="left: 94%;">
+              <div class="dot"></div>
+              <div class="point-card"><strong>2024 election</strong><span>The U.S. presidential election between Harris and Trump.</span></div>
+            </a>
+          </div>
+        </div>
+
+        <div class="legend">
+          <span class="soc">Society event</span>
+          <span class="art">Artist moment</span>
+          <span>Topic page link</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="social-events">
+      <div class="wrap">
+        <header>
+          <div>
+            <h2>Social Events</h2>
+            <p class="lead">Events that shape the political context performers respond to.</p>
+          </div>
+          <div class="page-actions">
+            <a class="small-link" href="#timeline">Back to timeline</a>
+            <button class="home-button" type="button" data-home>Home</button>
+          </div>
+        </header>
+
+        <div class="details-grid">
+          <article class="detail-card woody-source" id="great-depression">
+            <h3>Great Depression</h3>
+            <p>A worldwide economic crisis that began in 1929 and caused unemployment, poverty, and insecurity.</p>
+            <a class="wiki-link" href="https://en.wikipedia.org/wiki/Great_Depression" target="_blank" rel="noopener">Wikipedia</a>
+            <div class="placeholder">Woody Guthrie is affected by the Great Depression because economic hardship shaped the subjects and tone of his music.</div>
+          </article>
+
+          <article class="detail-card woody-source" id="dust-bowl">
+            <h3>Dust Bowl Migration</h3>
+            <p>Severe drought and dust storms forced many families to leave the Great Plains during the 1930s.</p>
+            <a class="wiki-link" href="https://en.wikipedia.org/wiki/Dust_Bowl" target="_blank" rel="noopener">Wikipedia</a>
+            <div class="placeholder">Woody Guthrie is affected by the Dust Bowl migration because he saw displaced workers and migrants as part of his audience and subject.</div>
+          </article>
+
+          <article class="detail-card woody-source" id="world-war-two">
+            <h3>World War II</h3>
+            <p>A global war from 1939 to 1945 that changed ideas about patriotism, labor, and public responsibility.</p>
+            <a class="wiki-link" href="https://en.wikipedia.org/wiki/World_War_II" target="_blank" rel="noopener">Wikipedia</a>
+            <div class="placeholder">Woody Guthrie participated in World War II by connecting his music and public image to anti-fascist politics.</div>
+          </article>
+
+          <article class="detail-card marvin-source" id="civil-rights">
+            <h3>Civil Rights Era</h3>
+            <p>A broad movement for racial equality, voting rights, and legal protections in the United States.</p>
+            <a class="wiki-link" href="https://en.wikipedia.org/wiki/Civil_rights_movement" target="_blank" rel="noopener">Wikipedia</a>
+            <div class="placeholder">Marvin Gaye is affected by the Civil Rights era because racial injustice shaped the political concerns he later expressed in music.</div>
+          </article>
+
+          <article class="detail-card marvin-source" id="vietnam-war">
+            <h3>Vietnam War</h3>
+            <p>A long Cold War conflict that created intense debate, protest, and grief in American society.</p>
+            <a class="wiki-link" href="https://en.wikipedia.org/wiki/Vietnam_War" target="_blank" rel="noopener">Wikipedia</a>
+            <div class="placeholder">Marvin Gaye is affected by the Vietnam War because the war shaped the questions of violence, loss, and responsibility in his political music.</div>
+          </article>
+
+          <article class="detail-card bunny-source" id="hurricane-maria">
+            <h3>Hurricane Maria</h3>
+            <p>A 2017 hurricane that caused major destruction and a humanitarian crisis in Puerto Rico.</p>
+            <a class="wiki-link" href="https://en.wikipedia.org/wiki/Hurricane_Maria" target="_blank" rel="noopener">Wikipedia</a>
+            <div class="placeholder">Bad Bunny is affected by Hurricane Maria because Puerto Rico's recovery and government response became part of his political context.</div>
+          </article>
+
+          <article class="detail-card bunny-source" id="puerto-rico-protests">
+            <h3>Puerto Rico Protests</h3>
+            <p>Mass protests in 2019 demanded accountability from Puerto Rican leadership.</p>
+            <a class="wiki-link" href="https://en.wikipedia.org/wiki/Telegramgate" target="_blank" rel="noopener">Wikipedia</a>
+            <div class="placeholder">Bad Bunny participated in the Puerto Rico protests by using his platform to support public anger and political accountability.</div>
+          </article>
+
+          <article class="detail-card bunny-source" id="election-2024">
+            <h3>2024 Presidential Election</h3>
+            <p>The U.S. presidential election between Kamala Harris and Donald Trump.</p>
+            <a class="wiki-link" href="https://en.wikipedia.org/wiki/2024_United_States_presidential_election" target="_blank" rel="noopener">Wikipedia</a>
+            <div class="placeholder">Bad Bunny participated in the 2024 presidential election by sharing Kamala Harris's post about Puerto Rico with his Instagram audience.</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="artist-events">
+      <div class="wrap">
+        <header>
+          <div>
+            <h2>Artist Events</h2>
+            <p class="lead">Performer moments that turn politics into visible public discussion.</p>
+          </div>
+          <div class="page-actions">
+            <a class="small-link" href="#timeline">Back to timeline</a>
+            <button class="home-button" type="button" data-home>Home</button>
+          </div>
+        </header>
+
+        <div class="details-grid">
+          <article class="detail-card woody-source" id="woody-political-persona">
+            <h3>Woody Guthrie Persona</h3>
+            <p>Guthrie built a public image around ordinary Americans and working-class struggle.</p>
+            <div class="placeholder">Add slides about persona, lyrics, and communication.</div>
+          </article>
+
+          <article class="detail-card marvin-source" id="whats-going-on">
+            <h3>What's Going On</h3>
+            <p>How Marvin Gaye brought social crisis into mainstream listening.</p>
+            <div class="placeholder">Add song analysis and audience reception later.</div>
+          </article>
+
+          <article class="detail-card bunny-source" id="bad-bunny-politics">
+            <h3>Bad Bunny Performances</h3>
+            <p>How performance can increase the visibility of Puerto Rican political topics.</p>
+            <div class="placeholder">Add examples from performances, music videos, or interviews.</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="page artist-page woody-page" id="woody-guthrie">
+      <div class="wrap">
+        <header>
+          <div>
+            <h2>Woody Guthrie</h2>
+            <p class="lead">Active period and political persona.</p>
+          </div>
+          <div class="page-actions">
+            <a class="small-link" href="#timeline">Back to timeline</a>
+            <button class="home-button" type="button" data-home>Home</button>
+          </div>
+        </header>
+
+        <div class="details-grid">
+          <article class="detail-card">
+            <h3>Performer page</h3>
+            <p>Use this page for Guthrie's early life, ordinary-American persona, lyrics, and influence.</p>
+            <div class="placeholder">Add your final Woody Guthrie content here.</div>
+          </article>
+          <article class="detail-card">
+            <h3>Connection to model</h3>
+            <p>Social hardship shaped Guthrie's beliefs; his performances made working-class struggles more visible.</p>
+            <div class="placeholder">Add evidence from slides later.</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="page artist-page marvin-page" id="marvin-gaye">
+      <div class="wrap">
+        <header>
+          <div>
+            <h2>Marvin Gaye</h2>
+            <p class="lead">Active period and political voice.</p>
+          </div>
+          <div class="page-actions">
+            <a class="small-link" href="#timeline">Back to timeline</a>
+            <button class="home-button" type="button" data-home>Home</button>
+          </div>
+        </header>
+
+        <div class="details-grid">
+          <article class="detail-card">
+            <h3>Performer page</h3>
+            <p>Use this page for why Marvin Gaye matters, his persona, lyrics, and communication.</p>
+            <div class="placeholder">Add your final Marvin Gaye content here.</div>
+          </article>
+          <article class="detail-card">
+            <h3>Connection to model</h3>
+            <p>War, protest, and racial conflict shaped the questions Gaye brought into performance.</p>
+            <div class="placeholder">Add evidence from slides later.</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="page artist-page bunny-page" id="bad-bunny">
+      <div class="wrap">
+        <header>
+          <div>
+            <h2>Bad Bunny</h2>
+            <p class="lead">Active period and politics through performance.</p>
+          </div>
+          <div class="page-actions">
+            <a class="small-link" href="#timeline">Back to timeline</a>
+            <button class="home-button" type="button" data-home>Home</button>
+          </div>
+        </header>
+
+        <div class="details-grid">
+          <article class="detail-card">
+            <h3>Performer page</h3>
+            <p>Use this page for Puerto Rico, political influence, audience reception, and performance style.</p>
+            <div class="placeholder">Add your final Bad Bunny content here.</div>
+          </article>
+          <article class="detail-card">
+            <h3>Connection to model</h3>
+            <p>Puerto Rican events and audience feedback shape what he chooses to emphasize publicly.</p>
+            <div class="placeholder">Add evidence from slides later.</div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const filterButtons = document.querySelectorAll("[data-filter]");
+    const items = document.querySelectorAll(".timeline-item");
+    const modelLinks = document.querySelectorAll("[data-filter-link]");
+    const pages = document.querySelectorAll(".page");
+    const backButton = document.querySelector("[data-back]");
+    const detailCards = document.querySelectorAll(".detail-card");
+    let navigationDepth = 0;
+
+    window.addEventListener("load", () => {
+      const initialTarget = window.location.hash.slice(1);
+
+      if (initialTarget && document.getElementById(initialTarget)) {
+        showPage(initialTarget);
+        return;
+      }
+
+      history.replaceState(null, "", window.location.pathname + window.location.search);
+      showPage("model");
+    });
+
+    function showPage(targetId) {
+      const targetElement = document.getElementById(targetId);
+      const targetPage = targetElement && targetElement.closest(".page");
+      const pageId = targetElement && targetElement.classList.contains("page")
+        ? targetId
+        : targetPage
+          ? targetPage.id
+          : "model";
+
+      pages.forEach((page) => {
+        page.classList.toggle("active", page.id === pageId);
+      });
+
+      detailCards.forEach((card) => {
+        card.classList.toggle("selected", card.id === targetId);
+      });
+
+      backButton.classList.toggle("hidden", pageId === "model");
+      window.scrollTo(0, 0);
+
+      if (targetElement && !targetElement.classList.contains("page")) {
+        targetElement.scrollIntoView({ block: "start" });
+      }
+    }
+
+    function setFilter(filter) {
+      filterButtons.forEach((button) => {
+        button.classList.toggle("active", button.dataset.filter === filter);
+      });
+
+      items.forEach((item) => {
+        const show = filter === "all" || item.dataset.kind === filter;
+        item.classList.toggle("hide", !show);
+      });
+    }
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => setFilter(button.dataset.filter));
+    });
+
+    modelLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        setFilter(link.dataset.filterLink);
+      });
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
+      link.addEventListener("click", (event) => {
+        const targetId = link.getAttribute("href").slice(1);
+
+        if (!targetId || !document.getElementById(targetId)) {
+          return;
+        }
+
+        event.preventDefault();
+
+        if (link.dataset.filterLink) {
+          setFilter(link.dataset.filterLink);
+        }
+
+        history.pushState(null, "", `#${targetId}`);
+        navigationDepth += 1;
+        showPage(targetId);
+      });
+    });
+
+    backButton.addEventListener("click", () => {
+      if (navigationDepth > 0) {
+        navigationDepth -= 1;
+        history.back();
+        return;
+      }
+
+      history.replaceState(null, "", window.location.pathname + window.location.search);
+      showPage("model");
+    });
+
+    document.querySelectorAll("[data-home]").forEach((button) => {
+      button.addEventListener("click", () => {
+        window.location.href = window.location.pathname + window.location.search;
+      });
+    });
+
+    window.addEventListener("popstate", () => {
+      const targetId = window.location.hash.slice(1) || "model";
+      showPage(targetId);
+    });
+  </script>
+</body>
+</html>
